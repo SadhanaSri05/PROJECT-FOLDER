@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Sign In Page</title>
+    <link rel="stylesheet" href="styleSign.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="sign-in-form">
+        <h2>Sign In</h2>
+        <form id="signInForm">
+          <div class="input-group">
+            <label for="email">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder="Enter your email id"
+            />
+          </div>
+          <div class="input-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              placeholder="Enter your password"
+            />
+            <span
+              class="toggle-password"
+              onclick="togglePassword('password', this)"
+              >Show</span
+            >
+          </div>
+          <div class="input-group">
+            <button type="submit">Sign In</button>
+          </div>
+        </form>
+        <p class="register-text">Don't have an account?</p>
+        <a href="signUp.html">Register here</a>
+      </div>
+    </div>
+
+    <script>
+      function togglePassword(fieldId, toggleButton) {
+        const passwordField = document.getElementById(fieldId);
+        if (passwordField.type === "password") {
+          passwordField.type = "text";
+          toggleButton.textContent = "Hide";
+        } else {
+          passwordField.type = "password";
+          toggleButton.textContent = "Show";
+        }
+      }
+
+      // Handle form submission
+      document
+        .getElementById("signInForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+
+          fetch("/signin", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: email,
+              password: password,
+            }),
+          })
+            .then((response) => {
+              if (response.ok) {
+                window.location.href = "index.html"; // Redirect to a dashboard page
+              } else {
+                return response.text().then((data) => {
+                  alert(data); // Show error message if credentials are invalid
+                });
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              alert("An error occurred during sign in.");
+            });
+        });
+    </script>
+  </body>
+</html>

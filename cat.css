@@ -1,0 +1,68 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-image: url("https://img.freepik.com/premium-vector/pink-watercolor-abstract-background-illustration_178156-11.jpg");
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f8f9fa;
+  color: #333;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 2rem;
+  color: #4a4e69;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+ul {
+  background-color: rgb(255, 230, 243);
+  list-style-type: none;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.fiction {
+  border-left: 6px solid #6a0572;
+}
+
+.Romance {
+  border-left: 6px solid #d7263d;
+}
+
+.Thriller {
+  border-left: 6px solid #7d4e57;
+}
+
+.Horror {
+  border-left: 6px solid #222;
+}
+
+li {
+  margin: 8px 0;
+}
+
+a {
+  color: #4a4e69;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  color: #222;
+  text-decoration: underline;
+}

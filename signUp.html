@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up Page</title>
+    <link rel="stylesheet" href="signUp.css" />
+  </head>
+  <body>
+    <form id="signupForm">
+      <div class="signup-box">
+        <div class="input-group">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="Name"
+            required
+            placeholder="Enter your username"
+          />
+        </div>
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="signupEmail"
+            name="Email"
+            required
+            placeholder="Enter your email"
+          />
+        </div>
+        <div class="input-group">
+          <label for="password">New Password</label>
+          <input
+            type="password"
+            id="signupPassword"
+            name="Password"
+            required
+            placeholder="Enter your password"
+          />
+          <span
+            class="toggle-password"
+            onclick="togglePassword('signupPassword', this)"
+            >Show</span
+          >
+        </div>
+        <div class="input-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            name="Conf_pass"
+            required
+            placeholder="Confirm your password"
+          />
+          <span
+            class="toggle-password"
+            onclick="togglePassword('confirmPassword', this)"
+            >Show</span
+          >
+        </div>
+        <div class="input-group">
+          <button type="submit" class="btn">Sign Up</button>
+        </div>
+      </div>
+    </form>
+
+    <script>
+      function togglePassword(fieldId, toggleButton) {
+        const passwordField = document.getElementById(fieldId);
+        if (passwordField.type === "password") {
+          passwordField.type = "text";
+          toggleButton.textContent = "Hide";
+        } else {
+          passwordField.type = "password";
+          toggleButton.textContent = "Show";
+        }
+      }
+
+      // Handle form submission
+      document.getElementById("signupForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const name = document.getElementById("username").value;
+        const email = document.getElementById("signupEmail").value;
+        const password = document.getElementById("signupPassword").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+
+        if (password !== confirmPassword) {
+          alert("Passwords do not match!");
+          return;
+        }
+
+        fetch("/signup", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            Name: name,
+            Email: email,
+            Password: password,
+            Conf_pass: confirmPassword,
+          }),
+        })
+          .then((response) => {
+            if (response.ok) {
+              // Navigate to sign.html after successful signup
+              window.location.href = "sign.html";
+            } else {
+              return response.text().then((data) => {
+                alert(data); // Show error message if signup fails
+              });
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("An error occurred during sign up.");
+          });
+      });
+    </script>
+  </body>
+</html>
